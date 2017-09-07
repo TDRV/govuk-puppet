@@ -11,6 +11,9 @@
 # [*enable_delayed_job_worker*]
 #   Whether or not to enable the background worker for Delayed Job.
 #   Boolean value.
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -43,6 +46,7 @@ class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
   $enable_delayed_job_worker = true,
+  $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
@@ -203,6 +207,10 @@ class govuk::apps::asset_manager(
 
     govuk::delayed_job::worker { 'asset-manager':
       enable_service => $enable_delayed_job_worker,
+    }
+
+    govuk::procfile::worker { $app_name:
+      enable_service => $enable_procfile_worker,
     }
 
     govuk::app::envvar {
