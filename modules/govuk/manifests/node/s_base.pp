@@ -107,26 +107,26 @@ class govuk::node::s_base (
 
   @filebeat::prospector {
     'apt-history':
-      paths  => '/var/log/apt/history.log',
+      paths  => ['/var/log/apt/history.log'],
       tags   => ['history'],
       fields => {'application' => 'apt'};
     'apt-term':
-      paths  => '/var/log/apt/term.log',
+      paths  => ['/var/log/apt/term.log'],
       tags   => ['term'],
       fields => {'application' => 'apt'};
     'dpkg':
-      paths  => '/var/log/dpkg.log',
+      paths  => ['/var/log/dpkg.log'],
       fields => {'application' => 'dpkg'};
     'unattended-upgrades':
-      paths  => '/var/log/unattended-upgrades/unattended-upgrades.log',
+      paths  => ['/var/log/unattended-upgrades/unattended-upgrades.log','/var/log/unattended-upgrades/unattended-upgrades-shutdown.log'],
       tags   => ['unattended'],
       fields => {'application' => 'apt'};
-    'unattended-upgrades-shutdown':
-      paths  => '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log',
-      tags   => ['unattended'],
-      fields => {'application' => 'apt'};
+    # 'unattended-upgrades-shutdown':
+    #   paths  => '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log',
+    #   tags   => ['unattended'],
+    #   fields => {'application' => 'apt'};
     'rkhunter':
-      paths  => '/var/log/rkhunter.log',
+      paths  => ['/var/log/rkhunter.log'],
       fields => {'application' => 'rkhunter'};
   }
 

@@ -76,7 +76,7 @@ class mongodb::backup(
   @filebeat::prospector { 'automongodbbackup':
     ensure => $present,
     fields => {'application' => 'automongodbbackup'},
-    paths  => '/var/log/automongodbbackup/backup.log',
+    paths  => ['/var/log/automongodbbackup/backup.log'],
     tags   => ['backup', 'automongodbbackup', 'mongo'],
   }
 

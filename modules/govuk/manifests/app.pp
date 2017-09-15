@@ -336,7 +336,7 @@ define govuk::app (
 
   @filebeat::prospector { "${title}-upstart-out":
     ensure => $ensure,
-    paths  => "/var/log/${title}/upstart.out.log",
+    paths  => ["/var/log/${title}/upstart.out.log"],
     tags   => ['stdout', 'upstart'],
     fields => {'application' => $title},
   }
@@ -350,7 +350,7 @@ define govuk::app (
 
   @filebeat::prospector { "${title}-upstart-err":
     ensure => $ensure,
-    paths  => "/var/log/${title}/upstart.err.log",
+    paths  => ["/var/log/${title}/upstart.err.log"],
     tags   => ['stderr', 'upstart'],
     fields => {'application' => $title},
   }
@@ -375,8 +375,9 @@ define govuk::app (
 
     @filebeat::prospector { "${title}-app-err":
       ensure => $ensure,
-      paths  => "/var/log/${title}/app.err.log",
+      paths  => ["/var/log/${title}/app.err.log"],
       tags   => ['stderr', 'app'],
+      json   => {'add_error_key' => $err_log_json},
       fields => {'application' => $title},
     }
 
@@ -404,8 +405,9 @@ define govuk::app (
 
       @filebeat::prospector { "${title}-production-log":
         ensure => $ensure,
-        paths  => $log_path,
+        paths  => [$log_path],
         tags   => ['stdout', 'application'],
+        json   => {'add_error_key' => $log_format_is_json},
         fields => {'application' => $title},
       }
     }
@@ -425,12 +427,12 @@ define govuk::app (
                           value => '@fields.view'}],
     }
 
-    @filebeat::prospector { "${title}-app-out":
-      ensure => $ensure,
-      paths  => "/var/log/${title}/app.out.log",
-      tags   => ['application'],
-      fields => {'application' => $title},
-    }
+    # @filebeat::prospector { "${title}-app-out":
+    #   ensure => $ensure,
+    #   paths  => "/var/log/${title}/app.out.log",
+    #   tags   => ['application'],
+    #   fields => {'application' => $title},
+    # }
 
     govuk_logging::logstream { "${title}-app-err":
       ensure  => $ensure,
@@ -439,9 +441,9 @@ define govuk::app (
       fields  => {'application' => $title},
     }
 
-    @filebeat::prospector { "${title}-app-err":
+    @filebeat::prospector { "${title}-app-out-and-err":
       ensure => $ensure,
-      paths  => "/var/log/${title}/app.err.log",
+      paths  => ["/var/log/${title}/app.err.log","/var/log/${title}/app.out.log"]
       tags   => ['application'],
       fields => {'application' => $title},
     }

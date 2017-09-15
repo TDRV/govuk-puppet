@@ -100,8 +100,9 @@ class govuk::apps::email_alert_api(
     }
 
     @filebeat::prospector { 'email_alert_api_sidekiq_json_log':
-      paths  => '/var/apps/email-alert-api/log/sidekiq.json.log',
+      paths  => ['/var/apps/email-alert-api/log/sidekiq.json.log'],
       fields => {'application' => 'email-alert-api-sidekiq'},
+      json   => {'add_error_key' => true},
     }
 
     govuk_logging::logstream { 'govdelivery_json_log':
@@ -111,8 +112,9 @@ class govuk::apps::email_alert_api(
     }
 
     @filebeat::prospector { 'govdelivery_json_log':
-      paths  => '/var/apps/email-alert-api/log/govdelivery.log',
+      paths  => ['/var/apps/email-alert-api/log/govdelivery.log'],
       fields => {'application' => 'email-alert-api-govdelivery'},
+      json   => {'add_error_key' => true},
     }
 
     Govuk::App::Envvar {

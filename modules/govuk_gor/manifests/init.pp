@@ -74,7 +74,7 @@ class govuk_gor(
   @filebeat::prospector { 'gor_upstart_log':
     ensure => $logstream_ensure,
     fields => {'application' => 'gor'},
-    paths  => '/var/log/upstart/gor.log',
+    paths  => ['/var/log/upstart/gor.log'],
     tags   => ['stdout', 'stderr', 'upstart', 'gor'],
   }
 

@@ -25,7 +25,7 @@ class govuk_mysql::server::logging(
   }
 
   @filebeat::prospector { 'mysql-error-logs':
-    paths  => $error_log,
+    paths  => [$error_log],
     tags   => ['error'],
     fields => {'application' => 'mysql'},
   }

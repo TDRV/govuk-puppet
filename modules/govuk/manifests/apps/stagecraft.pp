@@ -43,8 +43,9 @@ class govuk::apps::stagecraft (
     }
 
     @filebeat::prospector { 'performanceplatform_collectors_log':
-      paths  => '/var/apps/stagecraft/log/collectors.json.log',
+      paths  => ['/var/apps/stagecraft/log/collectors.json.log'],
       fields => {'application' => 'performanceplatform-collectors'},
+      json   => {'add_error_key' => true},
     }
 
     Govuk::App::Envvar {

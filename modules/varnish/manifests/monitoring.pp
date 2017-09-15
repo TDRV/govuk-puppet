@@ -14,7 +14,7 @@ class varnish::monitoring {
   }
 
   @filebeat::prospector { 'varnishncsa':
-    paths  => '/var/log/varnish/varnishncsa.log',
+    paths  => ['/var/log/varnish/varnishncsa.log'],
     fields => {'application' => 'varnish'},
   }
 
