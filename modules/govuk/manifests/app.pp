@@ -443,7 +443,7 @@ define govuk::app (
 
     @filebeat::prospector { "${title}-app-out-and-err":
       ensure => $ensure,
-      paths  => ["/var/log/${title}/app.err.log","/var/log/${title}/app.out.log"]
+      paths  => ["/var/log/${title}/app.err.log","/var/log/${title}/app.out.log"],
       tags   => ['application'],
       fields => {'application' => $title},
     }
