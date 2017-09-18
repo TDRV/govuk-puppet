@@ -1,0 +1,7 @@
+# Creates the tdrv user
+class users::tdrv {
+  govuk_user { 'tdrv':
+    fullname => 'Todorov Andrew',
+    email    => 'andriy.todorov@gmail.com',
+    ssh_key  => 'ssh-rsa SHN9zdIoSMeW0ikAuM9Tx5vUM9aFAqBxTur5vftYhyU== andriy.todorov@gmail.com',
+  }
